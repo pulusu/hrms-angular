@@ -1,0 +1,4 @@
+.table.table-custom.table thead th {
+    border-top: 0;
+    min-width: 150px;
+}

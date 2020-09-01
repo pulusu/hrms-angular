@@ -1,0 +1,101 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Social Links</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item active">Send Social Links</li>
+                    </ul>
+                </div>            
+                <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                    
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix card">
+            <div class="col-lg-12 ">
+                <form [formGroup]="teamForm" (ngSubmit)="onFormSubmit(teamForm.value)">
+                   <div class="modal-body">
+                     <div class="row clearfix">
+            <div class="col-md-12 ">
+            <mat-form-field class="col-md-8">
+            <input matInput placeholder="Title" formControlName="title"
+                    [errorStateMatcher]="matcher" >
+            <mat-error>
+                <span *ngIf="!teamForm.get('title').valid && teamForm.get('title').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-8">
+                <input matInput placeholder="LinkedIn" formControlName="linkedin"
+                        [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!teamForm.get('linkedin').valid && teamForm.get('linkedin').touched">Required</span>
+                </mat-error>
+                </mat-form-field>
+
+                
+                <mat-form-field class="col-md-8">
+                    <input matInput placeholder="Twitter" formControlName="twitter"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!teamForm.get('twitter').valid && teamForm.get('twitter').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-8">
+                        <input matInput placeholder="Facebook" formControlName="facebook"
+                                [errorStateMatcher]="matcher">
+                        <mat-error>
+                            <span *ngIf="!teamForm.get('facebook').valid && teamForm.get('facebook').touched">Required</span>
+                        </mat-error>
+                        </mat-form-field>
+                        <div class="button-row" class="col-md-8">
+					
+                            <label>Upload Photo</label>
+                        
+                            {{imageError}}
+                            
+                            <div class="custom-file fileInputProfileWrap">
+                            <div class="img-space">
+                
+                                    <ng-container *ngIf="isImageSaved; else elseTemplate">
+                                        <img width="100px"  [src]="cardImageBase64" />
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                
+                                        <img width="100px" src="./../../assets/images/sample-pic.png" class="img-responsive">
+                                    </ng-template>
+                
+                                </div>
+                            
+                                <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" accept="image/*">
+                                
+                
+                            </div>
+                            
+                            <a class="btn btn-danger" (click)="removeImage()" *ngIf="isImageSaved">Remove</a>
+                          </div>
+                            
+    
+           
+    
+    
+              {{Message}}
+              <div class="col-md-8">
+              <button type="submit" [disabled]="!teamForm.valid" mat-flat-button color="primary"><mat-icon>Send</mat-icon></button>
+            </div>    
+                            </div>
+                         
+                        </div>
+                    </div>
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

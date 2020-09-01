@@ -1,0 +1,70 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> {{ipl_team_view?.team_name}}</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/teams-list']">Teams</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/team-details',membber_id]">{{ipl_team_view?.team_name}}</a></li>
+                        <li class="breadcrumb-item active">{{membber_details?.team_member}}</li>
+                    </ul>
+                </div>            
+                
+            </div>
+        </div>
+
+       <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2><b>{{membber_details?.team_member}} </b> Score Board</h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped m-b-0">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Accuracy
+</th>
+                                        <th>Submissions
+</th>
+                                        <th>Closures
+</th>
+                                        <th>Compliance
+</th>
+                                        <th>&nbsp;Bonus
+</th>
+<th>Total Runs
+
+</th>
+<th *ngIf="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let team of team_details">
+                                        <td>{{team.score_date | date}}</td>
+                                        <td>{{team.emp_accuracy }}</td>
+                                        <td>{{team.emp_submissions}}</td>
+                                        <td>{{team.emp_closures}}</td>
+                                        <td>{{team.emp_compliance}}</td>
+                                        <td>{{team.emp_bonus}}</td>
+                                        <td>{{team.total_score}}</td>
+                                        <td *ngIf="action">   
+                                            <button   class="btn btn-info" [routerLink]="['/emp-score-edit/', team._id]">Edit</button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteScore(team._id)" title="Delete" data-type="confirm"><i class="fa fa-trash-o"></i></button>
+                                        </td>
+                                    </tr>
+                                
+                                  </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+               </div>
+        </div>
+       
+       </div>
+</div>

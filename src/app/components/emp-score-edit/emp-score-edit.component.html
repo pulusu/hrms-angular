@@ -1,0 +1,93 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Teams</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item"><a [routerLink]="['/teams-list']">Teams</a> </li>
+                        <li class="breadcrumb-item active">Add Score</li>
+                    </ul>
+                </div>            
+                <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                    
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix card">
+            <div class="col-lg-12 ">
+                <form [formGroup]="runsForm" (ngSubmit)="onFormSubmit(runsForm.value)">
+                   <div class="modal-body">
+                     <div class="row clearfix">
+            <div class="col-md-12 ">
+		
+            <mat-form-field class="col-md-6">
+            <input type="number" value="0" matInput placeholder="Accuracy" formControlName="emp_accuracy"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!runsForm.get('emp_accuracy').valid && runsForm.get('emp_accuracy').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+			
+			 <mat-form-field class="col-md-6">
+            <input type="number" value="0" matInput placeholder="Submissios" formControlName="emp_submissions"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!runsForm.get('emp_submissions').valid && runsForm.get('emp_submissions').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+			
+			<mat-form-field class="col-md-6">
+            <input type="number" value="0" matInput placeholder="Closures" formControlName="emp_closures"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!runsForm.get('emp_closures').valid && runsForm.get('emp_closures').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+			
+			<mat-form-field class="col-md-6">
+            <input type="number"  value="0" matInput placeholder="Compliance" formControlName="emp_compliance"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!runsForm.get('emp_compliance').valid && runsForm.get('emp_compliance').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+			
+			<mat-form-field class="col-md-6">
+            <input type="number" value="0" matInput placeholder="Bonus" formControlName="emp_bonus"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!runsForm.get('emp_bonus').valid && runsForm.get('emp_bonus').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+			
+			<mat-form-field class="col-md-6">
+
+            <input matInput [matDatepicker]="dobpicker" placeholder="Date of Score" formControlName="score_date" disabled>
+            <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+            <mat-datepicker #dobpicker disabled="false"></mat-datepicker>
+             <mat-error>
+             <span *ngIf="!runsForm.get('score_date').valid && runsForm.get('score_date').touched">Required</span>
+             </mat-error>
+            </mat-form-field>
+          
+            
+    
+          
+              {{Message}}
+              <div class="col-md-8">
+              <button type="submit" [disabled]="!runsForm.valid" mat-flat-button color="primary"><mat-icon>save  <img *ngIf="isLoadingResults" src="/assets/images/loading.gif" style="width: 30px;"></mat-icon></button>
+               
+            </div>    
+                            </div>
+                         
+                        </div>
+                    </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,239 @@
+  <div id="main-content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Employee List</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item">Employee</li>
+                            <li class="breadcrumb-item active">Employee List</li>
+                        </ul>
+                    </div>            
+                    
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-lg-12">
+                    <div class="card">
+                        
+                        <div class="body">
+						<div class="row m-b-20">
+                           
+                            <div class=" col-md-6">
+                                <input class="form-control" type="text" name="search" placeholder="Search here.." [(ngModel)]="filter">      
+                              </div>
+							  <div  *ngIf="isAdmin" class="col-md-6 text-right"><a  class="btn btn-info" [routerLink]="['/employee-add/']">Add New</a></div>
+                           
+                        </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-custom table-striped m-b-0 c_list">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th *ngIf="isAdmin">Emp-ID</th>
+                                            <th (click)="sort('employee_name')">Name             <span class="glyphicon sort-icon" *ngIf="key =='employee_name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th>Mobile</th>
+                                            <th> Email</th>
+                                            <th>Designation</th>
+                                            <th *ngIf="isAdmin">Join Date</th>
+                                            <th *ngIf="isAdmin">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                       <tr *ngFor="let employee of employeelist | orderBy: key : reverse | filter:filter | paginate : { itemsPerPage: 20, currentPage: p }; let i = index">
+                                        <td *ngIf="isAdmin"><span>{{employee.employee_id}}</span></td>
+                                            
+                                        <td>
+                                                <h6 class="mb-0">{{employee.employee_name}}</h6>
+                                                <span>{{employee.employee_email}}</span>
+                                            </td>
+                                            <td><span>{{employee.employee_mobile}}</span></td>
+                                            <td>{{employee.employee_office_email}}</td>
+                                            <td>{{employee.employee_designation}} </td>
+                                            <td *ngIf="isAdmin">{{employee.employee_join_date | date: 'd MMM, y' }}</td>
+                                            <td *ngIf="isAdmin">
+                                                <button   class="btn btn-default"
+                                                [routerLink]="['/edit-employee/', employee._id]">Edit</button>
+                                                
+                                                <button class="btn btn-success" *ngIf="employee.employee_staus != '1'"   (click)="ActiveEmployee(i, employee)">Active</button>
+                                                <button class="btn btn-danger" *ngIf="employee.employee_staus == '1'"  (click)="InActiveEmployee(i, employee)">Inactive</button>
+                                                <button (click)="viewEmployee(i, employee)" class="btn btn-info" data-toggle="modal" data-target="#addevent">View</button>
+ 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+	
+	
+    <div class="modal animated jello" id="addevent" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h4 class="title" id="defaultModalLabel">Employee Details</h4>
+                </div>
+<button type="button" (click)="toggle()" class="btn btn-info" data-toggle="collapse" data-target="#demo">Family Details</button>
+
+                <div class="modal-body"  *ngIf="loadviewEmp;else other_content">
+				
+				
+				<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-4 each_field list-group-item">ID : {{viewemployeeDetails.employee_id}} </div>
+    <div class="col-sm-4 each_field list-group-item">Name : {{viewemployeeDetails.employee_name}} {{viewemployeeDetails.employee_last_name}} </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_mobile?.length > 0">Mobile : {{viewemployeeDetails.employee_mobile}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Alternate Mobile : {{viewemployeeDetails.employee_alternate_mobile}}  </div>
+	<br>
+    <div class="col-sm-4 each_field list-group-item">Email : {{viewemployeeDetails.employee_personal_email}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Gender : {{viewemployeeDetails.employee_gender}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Blood Group : {{viewemployeeDetails.employee_blood_group}}  </div>
+	<br>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin">Actual Date Of Birth : {{viewemployeeDetails.employee_dob | date: 'd MMM, y' }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin">Date Of Birth as Per Records: {{viewemployeeDetails.employee_dob_per_records | date: 'd MMM, y' }}  </div>
+	<div class="col-sm-4 each_field list-group-item">Gothram : {{viewemployeeDetails.employee_gothram}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Pancard : {{viewemployeeDetails.employee_pancard}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Aadhar Card : {{viewemployeeDetails.employee_aadhar_card}}  </div>
+    <br>
+    <div class="col-sm-4 each_field list-group-item">UAN Number : {{viewemployeeDetails.employee_uan_number}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Emergency Contact Name : {{viewemployeeDetails.employee_contact_name}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Relationship : {{viewemployeeDetails.employee_relationship}}  </div>
+	<br>
+    <div class="col-sm-4 each_field list-group-item">Emergency Mobile Number : {{viewemployeeDetails.employee_emeregency_mobile}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Present Address : {{viewemployeeDetails.employee_com_address}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Permanent Address : {{viewemployeeDetails.employee_per_address}}  </div>
+	<br>
+    <div class="col-sm-4 each_field list-group-item">Access Card Number : {{viewemployeeDetails.employee_access_card}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Employee Email : {{viewemployeeDetails.employee_office_email}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Employee Designation : {{viewemployeeDetails.employee_designation}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Employee Department : {{viewemployeeDetails.employee_department}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Reporting Manager : {{viewemployeeDetails.employee_reporting_manager}}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin">Join Date : {{viewemployeeDetails.employee_join_date}}  </div>
+	<div class="col-sm-4 each_field list-group-item">Shift : {{viewemployeeDetails.employee_shift}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Job Location : {{viewemployeeDetails.employee_job_location}}  </div>
+    <div class="col-sm-4 each_field list-group-item">Image : {{viewemployeeDetails.employee_profie_pic}}  </div>
+    
+    
+  </div>
+</div>
+                    <!--<table class="table table-hover table-custom table-striped m-b-0 c_list">
+                        <tr><td colspan="2" class="text-center">
+                            <img src="{{viewemployeeDetails.employee_profie_pic}}" class="rounded-circle avatar" alt="">
+                        </td></tr>
+                        <tr><td>ID : </td><td>{{viewemployeeDetails.employee_id}} </td>
+                        <td>Name :</td><td>{{viewemployeeDetails.employee_name}} {{viewemployeeDetails.employee_last_name}} </td>
+                        <td>Mobile </td><td>{{viewemployeeDetails.employee_mobile}} </td></tr>
+                        <tr><td>Email :</td><td>{{viewemployeeDetails.employee_personal_email}} </td>
+                        <td>Gender :</td><td>{{viewemployeeDetails.employee_gender}} </td>
+                        <td>Blood Group :</td><td>{{viewemployeeDetails.employee_blood_group}} </td></tr>
+                        <tr><td *ngIf="isAdmin">Date Of Birth :</td><td>{{viewemployeeDetails.employee_dob | date: 'd MMM, y' }} </td>
+                        <td>Pancard :</td><td>{{viewemployeeDetails.employee_pancard}} </td>
+                        <td>Aadhar Card :</td><td>{{viewemployeeDetails.employee_aadhar_card}} </td></tr>
+                        <tr><td>UAN Number :</td><td>{{viewemployeeDetails.employee_uan_number}} </td>
+						
+                        <td>Emergency Contact Name :</td><td>{{viewemployeeDetails.employee_contact_name}} </td>
+                        <td>Relationship :</td><td>{{viewemployeeDetails.employee_relationship}} </td></tr>
+                        <tr><td>Emergency Mobile Number :</td><td>{{viewemployeeDetails.employee_emeregency_mobile}} </td>
+                        <td>Present Address :</td><td>{{viewemployeeDetails.employee_com_address}} </td>
+                        <td>Permanent Address :</td><td>{{viewemployeeDetails.employee_per_address}} </td></tr>
+						
+                        <tr><td>Access Card Number :</td><td>{{viewemployeeDetails.employee_access_card}} </td>
+                        <td *ngIf="viewemployeeDetails.employee_office_email?.length > 0">Employee Email :</td><td>{{viewemployeeDetails.employee_office_email}} </td>
+                        <td>Employee Designation :</td><td>{{viewemployeeDetails.employee_designation}} </td></tr>
+                        <tr><td>Employee Department :</td><td>{{viewemployeeDetails.employee_department}} </td>
+                        <td>Reporting Manager :</td><td>{{viewemployeeDetails.employee_reporting_manager}} </td>
+                        <td *ngIf="isAdmin">Join Date :</td><td>{{viewemployeeDetails.employee_join_date | date: 'd MMM, y' }} </td></tr>
+                        <tr><td>Job Location :</td><td>{{viewemployeeDetails.employee_job_location}} </td></tr>
+						
+						
+                    </table> -->   
+
+                </div>
+				
+				 
+                
+				<div id="demo" *ngIf="show_dialog" class="panel-collapse collapse container-fluid modal-body">
+				
+				<div class="row">
+    <div class="col-sm-4 each_field list-group-item">Father Name : {{viewemployeeDetails.employee_father_name}} </div> 
+	<br>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin">Father Date Of Birth : {{viewemployeeDetails.employee_father_dob | date: 'd MMM, y' }} </div> 
+	<br>
+    <div class="col-sm-4 each_field list-group-item">Father Age : {{viewemployeeDetails.employee_father_age}}  </div> 
+	<br>
+	
+    <div class="col-sm-4 each_field list-group-item">Mother Name : {{viewemployeeDetails.employee_mother_name}}  </div> <br>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin">Mother Date Of Birth : {{viewemployeeDetails.employee_mother_dob | date: 'd MMM, y'}}  </div> <br>
+    <div class="col-sm-4 each_field list-group-item">Mother Age : {{viewemployeeDetails.employee_mother_age}}  </div> <br>
+	
+    <div class="col-sm-4 each_field list-group-item">Marital Status : {{viewemployeeDetails.employee_marital_status }}  </div>
+	<div class="col-sm-4 each_field list-group-item">Spouse / Husband Name : {{viewemployeeDetails.employee_s_h_name}}  </div> <br>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin">S/H Date of Birth : {{viewemployeeDetails.employee_s_h_dob | date: 'd MMM, y'}}  </div>
+	<div class="col-sm-4 each_field list-group-item">Spouse/Husband Age : {{viewemployeeDetails.employee_s_h_age}}  </div> <br>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_s_h_name?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Spouse/ Husband Name : {{viewemployeeDetails.employee_s_h_name}}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child_1?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 1 Name : {{viewemployeeDetails.employee_child_1}}  </div>
+    
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child1_gender?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 1 Gender : {{viewemployeeDetails.employee_child1_gender}}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin && viewemployeeDetails.employee_child_1_dob?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 1 Date Of Birth : {{viewemployeeDetails.employee_child_1_dob | date: 'd MMM, y' }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child_2?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 2 Name : {{viewemployeeDetails.employee_child_2}}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child2_gender?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 2 Gender : {{viewemployeeDetails.employee_child2_gender}}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin && viewemployeeDetails.employee_child_2_dob?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 2 Date Of Birth : {{viewemployeeDetails.employee_child_2_dob | date: 'd MMM, y' }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child_3?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 3 Name : {{viewemployeeDetails.employee_child_3 }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child3_gender?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 3 Gender : {{viewemployeeDetails.employee_child3_gender}}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin && viewemployeeDetails.employee_child_3_dob?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 3 Gender : {{viewemployeeDetails.employee_child_2_dob | date: 'd MMM, y' }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child_4?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 4 Name : {{viewemployeeDetails.employee_child_4 }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="viewemployeeDetails.employee_child4_gender?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 4 Gender : {{viewemployeeDetails.employee_child_4_gender }}  </div>
+    <div class="col-sm-4 each_field list-group-item" *ngIf="isAdmin && viewemployeeDetails.employee_child_4_dob?.length > 0 && viewemployeeDetails.employee_marital_status != 'Single'">Child 4 Date Of Birth : {{viewemployeeDetails.employee_child_4_dob | date: 'd MMM, y' }}  </div>
+	
+	
+  </div>
+				
+				
+				
+        <!--<table class="table table-hover table-custom table-striped m-b-0 c_list">
+                        <tr><td>Father Name :</td><td>{{viewemployeeDetails.employee_father_name}}</td>
+                        <td *ngIf="isAdmin">Father Date Of Birth :</td><td>{{viewemployeeDetails.employee_father_dob | date: 'd MMM, y' }}</td>
+                        <td>Father Age :</td><td>{{viewemployeeDetails.employee_father_age}}</td></tr>
+                        
+						<tr><td *ngIf="isAdmin">Mother Name :</td><td>{{viewemployeeDetails.employee_mother_name}}</td>
+                        <td>Mother Date Of Birth :</td><td>{{viewemployeeDetails.employee_mother_dob | date: 'd MMM, y' }}</td>
+                        <td>Mother Age :</td><td>{{viewemployeeDetails.employee_mother_age}}</td></tr>
+                        <tr><td>Marital Status :</td><td>{{viewemployeeDetails.employee_marital_status}}</td>
+                        <td *ngIf="viewemployeeDetails.employee_s_h_name?.length > 0">Spouse/ husband Name :</td><td>{{viewemployeeDetails.employee_s_h_name}}</td>
+                        <td *ngIf="viewemployeeDetails.employee_child_1?.length > 0">Child 1 Name :</td><td>{{viewemployeeDetails.employee_child_1}}</td></tr>
+                        <tr><td *ngIf="viewemployeeDetails.employee_child1_gender?.length > 0">Child 1 Gender :</td><td>{{viewemployeeDetails.employee_child1_gender}}</td>
+                        <td *ngIf="isAdmin && viewemployeeDetails.employee_child_1_dob?.length > 0">Child 1 Date Of Birth :</td><td>{{viewemployeeDetails.employee_child_1_dob | date: 'd MMM, y' }}</td>
+                        
+						
+						
+						<td *ngIf="viewemployeeDetails.employee_child_2?.length > 0">Child 2 Name :</td><td>{{viewemployeeDetails.employee_child_2}}</td></tr>
+                        <tr><td *ngIf="viewemployeeDetails.employee_child2_gender?.length > 0">Child 2 Gender :</td><td>{{viewemployeeDetails.employee_child2_gender}}</td>
+                        <td *ngIf="isAdmin && viewemployeeDetails.employee_child_2_dob?.length > 0">Child 2 Date Of Birth :</td><td>{{viewemployeeDetails.employee_child_2_dob | date: 'd MMM, y' }}</td>
+                        <td *ngIf="viewemployeeDetails.employee_child_3?.length > 0">Child 3 Name :</td><td>{{viewemployeeDetails.employee_child_3}}</td></tr>
+                        <tr><td *ngIf="viewemployeeDetails.employee_child3_gender?.length > 0">Child 3 Gender :</td><td>{{viewemployeeDetails.employee_child3_gender}}</td>
+                        <td *ngIf="isAdmin && viewemployeeDetails.employee_child_3_dob?.length > 0">Child 3 Date Of Birth :</td><td>{{viewemployeeDetails.employee_child_3_dob | date: 'd MMM, y' }}</td>
+                        <td *ngIf="viewemployeeDetails.employee_child_4?.length > 0">Child 4 Name :</td><td>{{viewemployeeDetails.employee_child_4}}</td></tr>
+                        <tr><td *ngIf="viewemployeeDetails.employee_child4_gender?.length > 0">Child 4 Gender :</td><td>{{viewemployeeDetails.employee_child4_gender}}</td>
+                        <td *ngIf="isAdmin && viewemployeeDetails.employee_child_4_dob?.length > 0">Child 4 Date Of Birth :</td><td>{{viewemployeeDetails.employee_child_4_dob | date: 'd MMM, y' }}</td></tr>
+						
+                    </table>-->    
+      </div>
+				
+            </div>
+			
+        </div>
+		
+    </div><!-- Javascript -->
+    

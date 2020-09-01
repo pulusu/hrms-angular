@@ -1,0 +1,77 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Leave Requests</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a ><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item">Leave Request</li>
+                        <li class="breadcrumb-item active">Leve Request Send</li>
+                    </ul>
+                </div>            
+                
+            </div>
+        </div>
+
+        <div class="row clearfix card">
+            <div class="col-lg-8">
+                <form [formGroup]="leaveForm" (ngSubmit)="onFormSubmit(leaveForm.value)">
+                   <div class="modal-body">
+                     <div class="row clearfix">
+            
+                 
+            <mat-form-field class="col-md-12">
+                <mat-label>Select Leave Type</mat-label>
+                <mat-select formControlName="leave_name" placeholder="Select Leave Type" [errorStateMatcher]="matcher">
+                  <mat-option *ngFor="let leaveType of leaveTypes" [value]="leaveType.value">{{leaveType.viewValue}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    <span *ngIf="!leaveForm.get('leave_name').valid && leaveForm.get('leave_name').touched">Required</span>
+                </mat-error>
+     </mat-form-field>
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Reporting Manager" formControlName="department_head_name" readonly>
+
+                <mat-error>
+                    <span *ngIf="!leaveForm.get('department_head_name').valid && leaveForm.get('department_head_name').touched">Required</span>
+                  </mat-error>
+              </mat-form-field>
+    
+              <mat-form-field class="col-md-6">
+                <input matInput [matDatepicker]="pickerfrom" [min]="tomorrow" placeholder="From Date" formControlName="leave_from_date" >
+               <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
+               <mat-datepicker #pickerfrom disabled="false"></mat-datepicker>
+                <mat-error>
+                <span *ngIf="!leaveForm.get('leave_from_date').valid && leaveForm.get('leave_from_date').touched">Required</span>
+                </mat-error>
+            </mat-form-field>  
+            <mat-form-field class="col-md-12" class="col-md-6">
+                <input matInput [matDatepicker]="picker" placeholder="To Date" formControlName="leave_to_date" disabled>
+               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+               <mat-datepicker #picker disabled="false"></mat-datepicker>
+                <mat-error>
+                <span *ngIf="!leaveForm.get('leave_to_date').valid && leaveForm.get('leave_to_date').touched">Required</span>
+                </mat-error>
+            </mat-form-field >  
+            <mat-form-field class="col-md-12">
+                <textarea rows="4" matInput placeholder="Leave Description" formControlName="leave_description"
+                [errorStateMatcher]="matcher" placeholder="Leave a comment"></textarea>
+                <mat-error>
+                <span *ngIf="!leaveForm.get('leave_description').valid && leaveForm.get('leave_description').touched">Required</span>
+                 </mat-error>
+            </mat-form-field>
+    
+              {{Message}}
+            
+                            </div>
+                        <button type="submit" [disabled]="!leaveForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+                         
+                        
+                    </div>
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

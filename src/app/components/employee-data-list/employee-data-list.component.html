@@ -1,0 +1,82 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Employees List</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item">Employees</li>
+                        <li class="breadcrumb-item active">Employees List</li>
+                    </ul>
+                </div>            
+                
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    
+                    <div class="body">
+					<div class="row m-b-20" *ngIf="isAdmin">
+					     <div class="col-lg-6">
+                                <input class="form-control" type="text" name="search" placeholder="Search here.." [(ngModel)]="filter">      
+                         </div>
+                        <div class="col-lg-6 text-right" >
+                           <a  class="btn btn-info" [routerLink]="['/emp-data-add']">Add New</a>
+                        </div>
+                    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-custom table-striped m-b-0 c_list">
+                                <thead class="thead-dark">
+                                    <tr>
+                                       
+                                        <th *ngIf="isAdmin">Emp-ID</th>
+                                        <th (click)="sort('employee_name')">Name             <span class="glyphicon sort-icon" *ngIf="key =='employee_name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                        <th>Mobile</th>
+                                        <th>Email</th>
+                                        <th>Designation</th>
+										<th>Department</th>
+										<th>Date of Joining</th>
+										<th>Actual Date of Birth</th>
+										<th>Date of Birth as Per Records</th>
+										<th>Report Manager</th>
+										<th>Wedding Anniversary</th>
+										<th>Location</th>
+                                        <th *ngIf="isAdmin">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                
+                                    <tr *ngFor="let employee of employeelist | orderBy: key : reverse | filter:filter | paginate : { itemsPerPage: 20, currentPage: p }; let i = index">
+                                        <td *ngIf="isAdmin"><span>{{employee.emp_id}}</span></td>
+                                        <td><span>{{employee.emp_name}}</span></td>
+                                        <td><span>{{employee.emp_mobile}}</span></td>
+                                        <td>{{employee.emp_official_email}}</td>
+                                        <td>{{employee.emp_designation}} </td>
+										<td>{{employee.department[0].department_name}} </td>
+										<td>{{employee.emp_doj | date}} </td>
+										<td>{{employee.emp_actual_dob | date}} </td>
+										<td>{{employee.emp_dob_records | date}} </td>
+										<td>{{employee.emp_report_manager_mail}} </td>
+										<td>{{employee.emp_wedding_anniversary | date}} </td>
+										<td>{{employee.emp_job_location}} </td>
+										<td *ngIf="isAdmin">
+                                                <button   class="btn btn-info" [routerLink]="['/emp-data-edit/', employee._id]">Edit</button>
+                                                <button (click)="deleteEmployee(i, employee)" class="btn btn-danger" >Delete</button>
+ 
+                                            </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+							<pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

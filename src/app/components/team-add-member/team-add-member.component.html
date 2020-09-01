@@ -1,0 +1,55 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Teams/ {{ipl_team_view.team_name}}</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a ><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item">Team Members </li>
+                        <li class="breadcrumb-item active">Member Add</li>
+                    </ul>
+                </div>            
+                <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                    
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix card">
+            <div class="col-lg-12 ">
+                <form [formGroup]="teamAddmemberForm" (ngSubmit)="onFormSubmit(teamAddmemberForm.value)">
+                   <div class="modal-body">
+                     <div class="row clearfix">
+            <div class="col-md-12 ">
+            <h2>{{ipl_team_view.team_name}}</h2>
+           
+              <mat-form-field class="col-md-8">
+                <input matInput placeholder="Team Membber Name" formControlName="team_member"
+                        [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!teamAddmemberForm.get('team_member').valid && teamAddmemberForm.get('team_member').touched">Required</span>
+                </mat-error>
+                </mat-form-field>
+            
+    
+           
+    
+    
+              {{Message}}
+              <div class="col-md-8">
+              <button type="submit" [disabled]="!teamAddmemberForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+              <button [routerLink]="['/team-details',teamid]" class="btn btn-sm btn-danger right"><mat-icon>Cancel</mat-icon></button>
+
+            </div>    
+                            </div>
+                         
+                        </div>
+                    </div>
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,660 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Employee Add</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a ><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item">Employee</li>
+                        <li class="breadcrumb-item active">Employee Add</li>
+                    </ul>
+                </div>            
+                
+            </div>
+        </div>
+		<button mat-raised-button *ngIf="this.isButtonVisible" (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button>
+		<mat-horizontal-stepper [linear] = "isLinear" #stepper>
+   <mat-step [stepControl] = "firstFormGroup">
+      <form [formGroup] = "firstFormGroup">
+         <div class="modal-header">
+                                <h6 class="title" id="defaultModalLabel">Add New Employee Details</h6>
+         </div>
+		 <div class="modal-body">
+            <div class="row clearfix">
+	 
+		 <mat-form-field class="col-md-6">
+                    <input matInput placeholder="First Name" [(ngModel)]="employee_name" formControlName="employee_name"
+                            [errorStateMatcher]="matcher">
+                <mat-error>
+                        <span *ngIf="!firstFormGroup.get('employee_name').valid && firstFormGroup.get('employee_name').touched">Required</span>
+                    </mat-error>    
+           </mat-form-field>
+		   <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Last Name" [(ngModel)]="employee_last_name" formControlName="employee_last_name"
+                            [errorStateMatcher]="matcher">
+                 <mat-error>
+                        <span *ngIf="!firstFormGroup.get('employee_last_name').valid && firstFormGroup.get('employee_last_name').touched">Required</span>
+                    </mat-error>   
+             </mat-form-field>
+			 <mat-form-field class="col-md-6">
+                        <input matInput placeholder="Mobile Number" formControlName="employee_mobile"
+                               [errorStateMatcher]="matcher" maxlength="10" pattern="((\\+91-?)|0)?[0-9]{10}$">
+                    <mat-error>
+                          <span *ngIf="!firstFormGroup.get('employee_mobile').valid && firstFormGroup.get('employee_mobile').touched">Required</span>
+                        </mat-error>    
+             </mat-form-field>
+			 
+			 
+			 
+			 <mat-form-field class="col-md-6">
+                        <input matInput placeholder="Alternate Mobile Number" formControlName="employee_alternate_mobile"
+                               [errorStateMatcher]="matcher" maxlength="10" pattern="((\\+91-?)|0)?[0-9]{10}$">
+                    <mat-error>
+                          <span *ngIf="!firstFormGroup.get('employee_alternate_mobile').valid && firstFormGroup.get('employee_alternate_mobile').touched">Required</span>
+                        </mat-error>    
+             </mat-form-field>
+			 
+			 
+			 
+			
+			 
+			 <mat-form-field class="col-md-6">
+                        <input matInput placeholder="Personal Email" formControlName="employee_personal_email"
+                               [errorStateMatcher]="matcher" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+              <mat-error>
+                          <div *ngIf="!firstFormGroup.get('employee_personal_email').valid && firstFormGroup.get('employee_personal_email').touched">
+                                Required
+                          </div>
+                        </mat-error>          
+             </mat-form-field>
+			
+ 
+			 <mat-radio-group class="col-md-6">	
+			 <mat-label>Gender</mat-label>
+					<mat-radio-group aria-label="Select an option" formControlName="employee_gender">
+                         <mat-radio-button value="Male">Male</mat-radio-button>
+                         <mat-radio-button value="Female">Female</mat-radio-button>
+                    </mat-radio-group> 
+					
+		     </mat-radio-group>	
+					
+					<mat-form-field class="col-md-6">
+                               <mat-label>Select Blood Group</mat-label>
+                               <mat-select formControlName="employee_blood_group" placeholder="Select Blood Group" [errorStateMatcher]="matcher">
+                                 <mat-option *ngFor="let bloodgroup of bloodgroups" [value]="bloodgroup.value">{{bloodgroup.viewValue}}</mat-option>
+                               </mat-select>
+                        <mat-error>
+                          <span *ngIf="!firstFormGroup.get('employee_blood_group').valid && firstFormGroup.get('employee_blood_group').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput [matDatepicker]="dobpicker" placeholder="Actual Date of Birth" formControlName="employee_dob" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!firstFormGroup.get('employee_dob').valid && firstFormGroup.get('employee_dob').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput [matDatepicker]="dobpicker8" placeholder="Date of Birth as Per Records" formControlName="employee_dob_per_records" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker8"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker8 disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!firstFormGroup.get('employee_dob_per_records').valid && firstFormGroup.get('employee_dob_per_records').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					<mat-form-field class="col-md-6">
+                    <input matInput placeholder="Gothram" formControlName="employee_gothram"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!firstFormGroup.get('employee_gothram').valid && firstFormGroup.get('employee_gothram').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput placeholder="Pancard" formControlName="employee_pancard"
+                               [errorStateMatcher]="matcher" oninput="this.value = this.value.toUpperCase()" pattern="^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]$">
+                        <mat-error>
+                          <span *ngIf="!firstFormGroup.get('employee_pancard').valid && firstFormGroup.get('employee_pancard').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput placeholder="Enter Aadhar Card" formControlName="employee_aadhar_card"
+                               [errorStateMatcher]="matcher" maxlength="12" pattern="((\\+91-?)|0)?[0-9]{12}$">
+                        <mat-error>
+                          <span *ngIf="!firstFormGroup.get('employee_aadhar_card').valid && firstFormGroup.get('employee_aadhar_card').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput placeholder="Enter UAN Number" formControlName="employee_uan_number" minlength="10"
+                               [errorStateMatcher]="matcher" maxlength="13" pattern="((\\+91-?)|0)?[0-9]{10,13}$">
+                        <mat-error>
+                          <span *ngIf="!firstFormGroup.get('employee_uan_number').valid && firstFormGroup.get('employee_uan_number').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					<div class="button-row" class="col-md-6">
+					
+                        <label>Upload Photo</label>
+					
+                        {{imageError}}
+						
+                        <div class="custom-file fileInputProfileWrap">
+						<div class="img-space">
+            
+                                <ng-container *ngIf="isImageSaved; else elseTemplate">
+                                    <img width="100px"  [src]="cardImageBase64" />
+                                </ng-container>
+                                <ng-template #elseTemplate>
+            
+                                    <img width="100px" src="./../../assets/images/sample-pic.png" class="img-responsive">
+                                </ng-template>
+            
+                            </div>
+						
+                            <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile">
+                            
+            
+                        </div>
+						
+                        <a class="btn btn-danger" (click)="removeImage()" *ngIf="isImageSaved">Remove</a>
+                      </div>{{Message}}
+				
+		    </div>
+		  </div>
+         <div>
+		 
+           <button mat-button matStepperNext (click)="next()" class="btn btn-primary pull-right" [disabled]="!firstFormGroup.valid" mat-flat-button color="primary">Next</button>
+		   
+
+         </div>
+      </form>
+   </mat-step>
+   <mat-step [stepControl] = "secondFormGroup">
+      <form [formGroup] = "secondFormGroup">
+         
+		 <!--family details-->	
+					
+                        
+                            <div class="modal-header">
+                                <h6 class="title" id="defaultModalLabel">Add Family Details</h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row clearfix">
+                                   
+                
+                    
+                    <mat-form-field class="col-md-4">
+                    <input matInput placeholder="Father's Name" formControlName="employee_father_name"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_father_name').valid && secondFormGroup.get('employee_father_name').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					<mat-form-field class="col-md-4">
+                    
+					   <input matInput [matDatepicker]="dobpicker1" id="dobpicker1" placeholder="Date of Birth" [(ngModel)]="birthdate" displayFormat="DD-MM-YYYY" formControlName="employee_father_dob" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker1"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker1 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_father_dob').valid && secondFormGroup.get('employee_father_dob').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-4">
+                       <input matInput placeholder="Father's Age" value="{{age}}" [(ngModel)]="age" formControlName="employee_father_age"
+                            [errorStateMatcher]="matcher" readonly>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_father_age').valid && secondFormGroup.get('employee_father_age').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput placeholder="Mother's Name" formControlName="employee_mother_name"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_mother_name').valid && secondFormGroup.get('employee_mother_name').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-4">
+                    
+							<input matInput [matDatepicker]="dobpicker2" placeholder="Date of Birth" [(ngModel)]="birthdate1" displayFormat="DD-MM-YYYY" formControlName="employee_mother_dob" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker2"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker2 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_mother_dob').valid && secondFormGroup.get('employee_mother_dob').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-4">
+                       <input matInput placeholder="Mother's Age" value="{{age1}}" [(ngModel)]="age1" formControlName="employee_mother_age"
+                            [errorStateMatcher]="matcher" readonly>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_mother_age').valid && secondFormGroup.get('employee_mother_age').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-6">
+                               <mat-label>Marital Status</mat-label>
+                               <mat-select id="employee_marital_status" formControlName="employee_marital_status" [(ngModel)]="employee_marital_status" placeholder="Marital Status" [errorStateMatcher]="matcher">
+                                 <mat-option *ngFor="let employee of employees" [value]="employee.value">{{employee.viewValue}}</mat-option>
+                               </mat-select>
+                        <mat-error>
+                          <span *ngIf="!secondFormGroup.get('employee_marital_status').valid && secondFormGroup.get('employee_marital_status').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+				
+					 <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Spouse / Husband Name" formControlName="employee_s_h_name"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_s_h_name').valid && secondFormGroup.get('employee_s_h_name').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-6">
+                    
+							<input matInput [matDatepicker]="dobpicker7" placeholder="S/H Date of Birth" [(ngModel)]="birthdate2" displayFormat="DD-MM-YYYY" formControlName="employee_s_h_dob" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker7"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker7 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_s_h_dob').valid && secondFormGroup.get('employee_s_h_dob').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                       <input matInput placeholder="Spouse / Husband Age" value="{{age2}}" [(ngModel)]="age2" formControlName="employee_s_h_age"
+                            [errorStateMatcher]="matcher" readonly>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_s_h_age').valid && secondFormGroup.get('employee_s_h_age').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput placeholder="Child 1" formControlName="employee_child_1"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_1').valid && secondFormGroup.get('employee_child_1').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-radio-group class="col-md-4">
+					   <mat-label>Child 1 Gender</mat-label>
+					     <mat-radio-group aria-label="Select an option" formControlName="employee_child1_gender">
+                           <mat-radio-button value="Male">Male</mat-radio-button>
+                           <mat-radio-button value="Female">Female</mat-radio-button>
+                       </mat-radio-group>
+			        </mat-radio-group>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput [matDatepicker]="dobpicker3" placeholder="Child 1 DOB" formControlName="employee_child_1_dob"
+                             disabled>
+							 <mat-datepicker-toggle matSuffix [for]="dobpicker3"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker3 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_1_dob').valid && secondFormGroup.get('employee_child_1_dob').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput placeholder="Child 2" formControlName="employee_child_2"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_2').valid && secondFormGroup.get('employee_child_2').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-radio-group class="col-md-4">	
+					    <mat-label>Child 2 Gender</mat-label>
+					    <mat-radio-group aria-label="Select an option" formControlName="employee_child2_gender">
+                         <mat-radio-button value="Male">Male</mat-radio-button>
+                         <mat-radio-button value="Female">Female</mat-radio-button>
+                        </mat-radio-group>
+				    </mat-radio-group>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput [matDatepicker]="dobpicker4" placeholder="Child 2 DOB" formControlName="employee_child_2_dob"
+                            disabled>
+							<mat-datepicker-toggle matSuffix [for]="dobpicker4"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker4 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_2_dob').valid && secondFormGroup.get('employee_child_2_dob').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput placeholder="Child 3" formControlName="employee_child_3"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_3').valid && secondFormGroup.get('employee_child_3').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-radio-group class="col-md-4">		
+					   <mat-label>Child 3 Gender</mat-label>
+					    <mat-radio-group aria-label="Select an option" formControlName="employee_child3_gender">
+                          <mat-radio-button value="Male">Male</mat-radio-button>
+                          <mat-radio-button value="Female">Female</mat-radio-button>
+                        </mat-radio-group>
+				    </mat-radio-group>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput [matDatepicker]="dobpicker5" placeholder="Child 3 DOB" formControlName="employee_child_3_dob"
+                            disabled>
+							<mat-datepicker-toggle matSuffix [for]="dobpicker5"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker5 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_3_dob').valid && secondFormGroup.get('employee_child_3_dob').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput placeholder="Child 4" formControlName="employee_child_4"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_4').valid && secondFormGroup.get('employee_child_4').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-radio-group class="col-md-4">	
+					   <mat-label>Child 4 Gender</mat-label>
+					     <mat-radio-group aria-label="Select an option" formControlName="employee_child4_gender">
+                           <mat-radio-button value="Male">Male</mat-radio-button>
+                           <mat-radio-button value="Female">Female</mat-radio-button>
+                       </mat-radio-group>
+				    </mat-radio-group>
+					
+					
+					<mat-form-field class="col-md-4">
+                    <input matInput [matDatepicker]="dobpicker6" placeholder="Child 4 DOB" formControlName="employee_child_4_dob"
+                            disabled>
+							<mat-datepicker-toggle matSuffix [for]="dobpicker6"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker6 disabled="false"></mat-datepicker>
+                    <mat-error>
+                        <span *ngIf="!secondFormGroup.get('employee_child_4').valid && secondFormGroup.get('employee_child_4').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+
+
+
+
+                                   
+                                    
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+           <button mat-button matStepperNext (click)="next()" class="btn btn-primary" [disabled]="!secondFormGroup.valid" mat-flat-button color="primary">Next</button>
+                               
+                            </div>
+                           
+               
+      </form>
+   </mat-step>
+   
+   
+    <mat-step [stepControl] = "thirdFormGroup">
+      <form [formGroup] = "thirdFormGroup">
+         
+		 <!--Emergency Contact Details-->	
+					
+                   <div class="modal-header">
+                                <h6 class="title" id="defaultModalLabel">Emergency Contact Details</h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row clearfix">
+                                   
+                
+                    <div class="col-md-12">
+                    <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Name Of Contact Person" formControlName="employee_contact_name"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!thirdFormGroup.get('employee_contact_name').valid && thirdFormGroup.get('employee_contact_name').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                    <input matInput placeholder="Relationship" formControlName="employee_relationship"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!thirdFormGroup.get('employee_relationship').valid && thirdFormGroup.get('employee_relationship').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					 <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Contact Number" formControlName="employee_emeregency_mobile"
+                            [errorStateMatcher]="matcher" maxlength="10" pattern="((\\+91-?)|0)?[0-9]{10}$">
+                    <mat-error>
+                        <span *ngIf="!thirdFormGroup.get('employee_emeregency_mobile').valid && thirdFormGroup.get('employee_emeregency_mobile').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					       </div>
+                                    
+                                </div>
+                            </div>
+							
+							
+			        <hr>
+
+					<div class="modal-header">
+                             <h6 class="title" id="defaultModalLabel">Communication Details</h6>
+                    </div>
+					<div class="modal-body">
+                        <div class="row clearfix">
+                                   
+                
+                    <div class="col-md-12">
+                    <mat-form-field class="col-md-6">
+                   
+						<textarea matInput placeholder="Present Address" formControlName="employee_com_address"
+                            [errorStateMatcher]="matcher"></textarea>	
+                    <mat-error>
+                        <span *ngIf="!thirdFormGroup.get('employee_com_address').valid && thirdFormGroup.get('employee_com_address').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-6">
+                    
+							<textarea matInput placeholder="Permenent Address" formControlName="employee_per_address"
+                            [errorStateMatcher]="matcher"></textarea>	
+                    <mat-error>
+                        <span *ngIf="!thirdFormGroup.get('employee_per_address').valid && thirdFormGroup.get('employee_per_address').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					       </div>
+                                    
+                                </div>
+                            </div>
+							
+                            <div class="modal-footer">
+           <button mat-button matStepperNext (click)="next()" class="btn btn-primary" [disabled]="!thirdFormGroup.valid" mat-flat-button color="primary">Next</button>
+                              
+							  <!--<button type="submit" [disabled]="!employeeForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+                                <button id="close-modal-employee" type="button" class="btn btn-secondary" [routerLink]="['/employees-list/']" >Cancel</button>-->
+                            </div>
+      </form>
+   </mat-step>
+   
+   
+   <mat-step [stepControl] = "fourthFormGroup">
+      <form [formGroup] = "fourthFormGroup" (ngSubmit)="onFormSubmit()">
+         
+		 <!--Employee Details-->	
+					
+                   <div class="modal-header">
+                                <h6 class="title" id="defaultModalLabel">Employee Details</h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row clearfix">
+                                   
+                
+                    <div class="col-md-12">
+                    <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Emp Id" formControlName="employee_id"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!fourthFormGroup.get('employee_id').valid && fourthFormGroup.get('employee_id').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                    <input matInput placeholder="Employee Access Card Number" formControlName="employee_access_card"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!fourthFormGroup.get('employee_access_card').valid && fourthFormGroup.get('employee_access_card').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					 <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Employee Email Id" formControlName="employee_office_email"
+                            [errorStateMatcher]="matcher" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+							<!--<input matInput value={{employee_name}}.{{employee_last_name}}@solunuscorp.com formControlName="employee_office_email"
+                            [errorStateMatcher]="matcher" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" readonly>-->
+                    <mat-error>
+                       <div *ngIf="!fourthFormGroup.get('employee_office_email').valid && fourthFormGroup.get('employee_office_email').touched">
+                                Required
+                          </div>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					
+					 <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Designation" formControlName="employee_designation"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!fourthFormGroup.get('employee_designation').valid && fourthFormGroup.get('employee_designation').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                    <input matInput placeholder="Department" formControlName="employee_department"
+                            [errorStateMatcher]="matcher" (input)="suggest_carrier($event.target.value)" [matAutocomplete]="autoc">
+					<mat-autocomplete #autoc="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let c of carrier_Result" [value]="c">
+                        {{c.department_name}}
+                      </mat-option>
+                    </mat-autocomplete>		
+                    <mat-error>
+                        <span *ngIf="!fourthFormGroup.get('employee_department').valid && fourthFormGroup.get('employee_department').touched">Required</span>
+                    </mat-error>
+					
+                    </mat-form-field>
+					
+					
+					<mat-form-field class="col-md-6">
+                    <input matInput placeholder="Reporting To" formControlName="employee_reporting_manager"
+                            [errorStateMatcher]="matcher" (input)="suggest_manager($event.target.value)" [matAutocomplete]="autoc_employee">
+					<mat-autocomplete #autoc_employee="matAutocomplete" [displayWith]="displayFnemp">
+                       <mat-option *ngFor="let c of emp_Result" [value]="c">
+                           {{c.employee_name}}
+                       </mat-option>
+                   </mat-autocomplete>		
+                    <mat-error>
+                        <span *ngIf="!fourthFormGroup.get('employee_reporting_manager').valid && fourthFormGroup.get('employee_reporting_manager').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+					
+					
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput [matDatepicker]="picker" placeholder="Date Of Joining" formControlName="employee_join_date" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                       <mat-datepicker #picker disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!fourthFormGroup.get('employee_join_date').valid && fourthFormGroup.get('employee_join_date').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field> 
+					
+					
+					<mat-radio-group class="col-md-6">	
+			          <mat-label>Shift</mat-label>
+					        <mat-radio-group aria-label="Select an option" formControlName="employee_shift">
+                               <mat-radio-button value="Day">Day</mat-radio-button>
+                               <mat-radio-button value="Night">Night</mat-radio-button>
+                            </mat-radio-group> 
+					
+		            </mat-radio-group>	
+					
+					
+					
+					
+					<mat-form-field class="col-md-6">
+                               <mat-label>Job Location</mat-label>
+                               <mat-select formControlName="employee_job_location" placeholder="Job Location" [errorStateMatcher]="matcher">
+                                 <mat-option *ngFor="let location of locations" [value]="location.value">{{location.viewValue}}</mat-option>
+                               </mat-select>
+                        <mat-error>
+                          <span *ngIf="!fourthFormGroup.get('employee_job_location').valid && fourthFormGroup.get('employee_job_location').touched">Required</span>
+                        </mat-error>
+
+
+
+                    </mat-form-field>
+					
+					{{Message}}
+					       </div>
+                                    
+                                </div>
+                            </div>
+						
+                            <div class="modal-footer">
+			 <button type="submit" class="btn btn-primary" [disabled]="!fourthFormGroup.valid" ><mat-icon>save</mat-icon></button>				
+             <button  type="button" class="btn btn-secondary" [routerLink]="['/employees-list/']" >Cancel</button>
+                              
+							  <!--<button type="submit" [disabled]="!employeeForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+                                <button id="close-modal-employee" type="button" class="btn btn-secondary" [routerLink]="['/employees-list/']" >Cancel</button>-->
+                            </div>
+      </form>
+   </mat-step>
+   
+   
+   <!--<mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+         Details taken.
+      <div>
+         <button mat-button matStepperPrevious>Back</button>
+         <button mat-button (click) = "stepper.reset()">Reset</button>
+      </div>
+   </mat-step>-->
+</mat-horizontal-stepper>
+</div>
+</div>

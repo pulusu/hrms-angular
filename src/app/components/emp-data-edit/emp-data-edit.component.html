@@ -1,0 +1,191 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Employee</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a ><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item">Employee </li>
+                        <li class="breadcrumb-item active">Employee Edit</li>
+                    </ul>
+                </div>            
+                <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                    
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix card">
+            <div class="col-lg-12 ">
+                <form [formGroup]="empForm" (ngSubmit)="onFormSubmit(empForm.value)">
+                   <div class="modal-body">
+                     <div class="row clearfix">
+            <div class="col-md-12 ">
+			
+			
+            <mat-form-field class="col-md-6">
+            <input matInput placeholder="Emp Id" formControlName="emp_id"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!empForm.get('emp_id').valid && empForm.get('emp_id').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+			
+			 <mat-form-field class="col-md-6">
+            <input matInput placeholder="Employee Name" formControlName="emp_name"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!empForm.get('emp_name').valid && empForm.get('emp_name').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-6">
+                <input matInput placeholder="Employee Email" formControlName="emp_official_email"
+                        [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!empForm.get('emp_official_email').valid && empForm.get('emp_official_email').touched">Required</span>
+                </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Employee Personal Email" formControlName="emp_personal_email"
+                            [errorStateMatcher]="matcher">
+                    <mat-error>
+                        <span *ngIf="!empForm.get('emp_personal_email').valid && empForm.get('emp_personal_email').touched">Required</span>
+                    </mat-error>
+                    </mat-form-field>
+                <mat-form-field class="col-md-6">
+            <input matInput placeholder="Designation" formControlName="emp_designation"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!empForm.get('emp_designation').valid && empForm.get('emp_designation').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-6">
+                <mat-label>Select Department</mat-label>
+                
+                <mat-select formControlName="employee_department" placeholder="Select Department" [errorStateMatcher]="matcher">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let c of carrier_Result" [value]="c._id">
+                        {{c.department_name}} 
+                      </mat-option>
+                      </mat-select>
+         <mat-error>
+           <span *ngIf="!empForm.get('employee_department').valid && empForm.get('employee_department').touched">Required</span>
+         </mat-error>
+
+
+
+     </mat-form-field>
+			
+        <mat-form-field class="col-md-6">
+                <input matInput placeholder="Mobile Number" formControlName="emp_mobile"
+                           [errorStateMatcher]="matcher" maxlength="10" pattern="((\\+91-?)|0)?[0-9]{10}$">
+        <mat-error>
+            <span *ngIf="!empForm.get('emp_mobile').valid && empForm.get('emp_mobile').touched">Required</span>
+        </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+            <input matInput placeholder="Alternate  Mobile Number" formControlName="emp_alt_mobile"
+                       [errorStateMatcher]="matcher" maxlength="10" pattern="((\\+91-?)|0)?[0-9]{10}$">
+    <mat-error>
+        <span *ngIf="!empForm.get('emp_alt_mobile').valid && empForm.get('emp_alt_mobile').touched">Required</span>
+    </mat-error>
+    </mat-form-field>
+			<mat-form-field class="col-md-6">
+            <input matInput [matDatepicker]="dobpicker" placeholder="Date of Joining" formControlName="emp_doj" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!empForm.get('emp_doj').valid && empForm.get('emp_doj').touched">Required</span>
+                        </mat-error>
+            </mat-form-field>
+			
+
+			
+			<mat-form-field class="col-md-6">
+                        <input matInput [matDatepicker]="dobpicker1" placeholder="Actual Date of Birth" formControlName="emp_actual_dob" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker1"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker1 disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!empForm.get('emp_actual_dob').valid && empForm.get('emp_actual_dob').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput [matDatepicker]="dobpicker2" placeholder="Date of Birth as Per Records" formControlName="emp_dob_records" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker2"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker2 disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!empForm.get('emp_dob_records').valid && empForm.get('emp_dob_records').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					
+					<mat-form-field class="col-md-6">
+                        <input matInput [matDatepicker]="dobpicker3" placeholder="Wedding Anniversary" formControlName="emp_wedding_anniversary" disabled>
+                       <mat-datepicker-toggle matSuffix [for]="dobpicker3"></mat-datepicker-toggle>
+                       <mat-datepicker #dobpicker3 disabled="false"></mat-datepicker>
+                        <mat-error>
+                        <span *ngIf="!empForm.get('emp_wedding_anniversary').valid && empForm.get('emp_wedding_anniversary').touched">Required</span>
+                        </mat-error>
+                    </mat-form-field>
+					<mat-form-field class="col-md-6">
+                               <mat-label>Job Location</mat-label>
+                               <mat-select formControlName="emp_job_location" placeholder="Job Location" [errorStateMatcher]="matcher">
+                                 <mat-option *ngFor="let location of locations" [value]="location.value">{{location.viewValue}}</mat-option>
+                               </mat-select>
+                        <mat-error>
+                          <span *ngIf="!empForm.get('emp_job_location').valid && empForm.get('emp_job_location').touched">Required</span>
+                        </mat-error>
+
+
+
+                    </mat-form-field>
+                    
+					 <mat-form-field class="col-md-6">
+            <input matInput placeholder="Reporting Manager E-mail" formControlName="emp_report_manager_mail"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!empForm.get('emp_report_manager_mail').valid && empForm.get('emp_report_manager_mail').touched">Required</span>
+            </mat-error>
+            </mat-form-field>
+            <div class="button-row">
+                <label>Upload Logo</label>
+                {{imageError}}
+                <div class="custom-file fileInputProfileWrap">
+                    <input accept="image/*" type="file" (change)="fileChangeEvent($event)" class="fileInputProfile">
+                    <div class="img-space">
+    
+                        <ng-container *ngIf="isImageSaved; else elseTemplate">
+                            <img width="100px"  [src]="cardImageBase64" />
+                            
+                        </ng-container>
+                        <ng-template #elseTemplate>
+      <img width="100px"  [src]="cardImageBase64" />
+                             
+                        </ng-template>
+    
+                    </div>
+    
+                </div>
+                <a class="btn btn-danger" (click)="removeImage()" *ngIf="isImageSaved">Remove</a>
+              </div>
+            
+    
+          
+              {{Message}}
+              <div class="col-md-8">
+              <button type="submit" [disabled]="!empForm.valid" class="btn btn-info">save</button>
+				<a  class="btn btn-danger" [routerLink]="['/emp-data-list']"> Cancel</a>
+
+            </div>    
+                            </div>
+                         
+                        </div>
+                    </div>
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

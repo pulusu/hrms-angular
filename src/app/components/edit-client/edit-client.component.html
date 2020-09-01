@@ -1,0 +1,195 @@
+<!-- Title group  -->
+<div class="title-group">
+  <h1 class="mat-h1">Add Client</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- Form -->
+<div class="inner-wrapper">
+  <form [formGroup]="studentForm" (ngSubmit)="submitStudentForm()" #resetStudentForm="ngForm" novalidate>
+    <!-- Left block -->
+    <mat-card>
+      <div class="controlers-wrapper">
+        <!-- Name -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Client name" formControlName="client_name">
+          <mat-error *ngIf="handleError('client_name', 'required')">
+            You must provide a<strong> client name</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Client primary email" formControlName="primary_email">
+          <mat-error *ngIf="handleError('primary_email', 'required')">
+            You must provide a<strong> primary email</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Section -->
+        <mat-form-field>
+          <mat-label>Location</mat-label>
+          <mat-select [(value)]="selected" formControlName="location">
+            <mat-option [value]="sectioinArray1" *ngFor="let sectioinArray1 of SectioinArray1">{{sectioinArray1}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="handleError('location', 'required')">
+            Location is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+    <!-- Right block -->
+    <mat-card>
+      <div class="controlers-wrapper">
+        <!-- Website -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Website" formControlName="website">
+          <mat-error *ngIf="handleError('website', 'required')">
+            You must provide a<strong> website name</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Address -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Client address" formControlName="address">
+          <mat-error *ngIf="handleError('address', 'required')">
+            You must provide a<strong> address</strong>
+          </mat-error>
+        </mat-form-field>        
+      </div>
+    </mat-card>
+
+    <!-- Contact & Person One -->
+    <div class="title-group">
+      <h3 class="mat-h3">Contact Person One</h3>
+      <mat-divider fxFlex="1 0"></mat-divider>
+    </div>
+
+    <mat-card>
+      <div class="controlers-wrapper">
+        <!-- Name -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Contact person name" formControlName="Contact_Person_Name_1">
+          <mat-error *ngIf="handleError('Contact_Person_Name_1', 'required')">
+            You must provide a<strong> Contact person name</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Mobile Number" formControlName="Mobile_Number_1">
+          <mat-error *ngIf="handleError('Mobile_Number_1', 'required')">
+            You must provide a<strong> Mobile</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Section -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Office Number" formControlName="Office_Number_1">
+          <mat-error *ngIf="handleError('Office_Number_1', 'required')">
+            You must provide a<strong> Office number</strong>
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </mat-card>
+
+    <!-- Right block -->
+    <mat-card>
+      <div class="controlers-wrapper">
+        <!-- Website -->
+          <!-- Email -->
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" formControlName="Email_id_1">
+            <mat-error *ngIf="handleError('Email_id_1', 'required')">
+              You must provide a<strong>  email</strong>
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Section -->
+          <mat-form-field>
+            <mat-label>Location</mat-label>
+            <mat-select  formControlName="Location_1">
+              <mat-option [value]="sectioinArray2" *ngFor="let sectioinArray2 of SectioinArray2">{{sectioinArray2}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="handleError('Location_1', 'required')">
+              Location is required
+            </mat-error>
+          </mat-form-field>      
+      </div>
+    </mat-card>
+
+
+        <!-- Contact & Person One -->
+        <div class="title-group">
+          <h3 class="mat-h3">Contact Person Two</h3>
+          <mat-divider fxFlex="1 0"></mat-divider>
+        </div>
+    
+        <mat-card>
+          <div class="controlers-wrapper">
+            <!-- Name -->
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact person name" formControlName="Contact_Person_Name_2">
+              <mat-error *ngIf="handleError('Contact_Person_Name_2', 'required')">
+                You must provide a<strong> Contact person name</strong>
+              </mat-error>
+            </mat-form-field>
+    
+            <!-- Email -->
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Mobile Number" formControlName="Mobile_Number_2">
+              <mat-error *ngIf="handleError('Mobile_Number_2', 'required')">
+                You must provide a<strong> Mobile</strong>
+              </mat-error>
+            </mat-form-field>
+    
+            <!-- Section -->
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Office Number" formControlName="Office_Number_2">
+              <mat-error *ngIf="handleError('Office_Number_2', 'required')">
+                You must provide a<strong> Office number</strong>
+              </mat-error>
+            </mat-form-field>
+    
+          </div>
+        </mat-card>
+    
+        <!-- Right block -->
+        <mat-card>
+          <div class="controlers-wrapper">
+            <!-- Website -->
+              <!-- Email -->
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" formControlName="Email_id_2">
+                <mat-error *ngIf="handleError('Email_id_2', 'required')">
+                  You must provide a<strong>  email</strong>
+                </mat-error>
+              </mat-form-field>
+      
+              <!-- Section -->
+              <mat-form-field>
+                <mat-label>Location</mat-label>
+                <mat-select formControlName="Location_2">
+                  <mat-option [value]="sectioinArray3" *ngFor="let sectioinArray3 of SectioinArray3">{{sectioinArray3}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="handleError('Location_2', 'required')">
+                  Location is required
+                </mat-error>
+              </mat-form-field>      
+          </div>
+        </mat-card>
+
+    <mat-card>
+      <div class="full-wrapper button-wrapper">
+        <div class="button-wrapper">
+          <button mat-flat-button color="warn">Update</button>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>

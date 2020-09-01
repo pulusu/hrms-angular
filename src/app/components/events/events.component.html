@@ -1,0 +1,120 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Events</h2>
+                    
+                </div>            
+                
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="body">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card" *ngIf="isAdmin">
+                    <div class="body">
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addevent">Add New Event</button>
+                    </div>
+                </div>
+                <div class="text-center" >
+                    <h3 class="btn btn-info">All Events</h3> 
+                </div>
+                <div class="card">
+                    <div class="body">
+                                                 
+                        <div class="event-name row" *ngFor="let event of eventslist; let i = index">
+                            <div class="col-3 text-center">
+                                <h4>{{event.event_date | date: 'd'}}<span>{{event.event_date | date: 'MMM'}}</span><span>{{event.event_date | date: 'y  '}}</span></h4>
+                            </div>
+                            <div class="col-9">
+                                <h6>{{event.event_name}}</h6>
+                                <p>{{event.event_description}}</p>
+                                <address><i class="fa fa-map-marker"></i> {{event.event_location}}</address>
+                            </div>
+                             <hr>
+                        </div>
+                        
+                       
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal animated jello" id="addevent" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form [formGroup]="eventsForm" (ngSubmit)="onFormSubmit(eventsForm.value)">
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">Add Holiday</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+                   
+
+				   <div class="col-md-12">
+   
+      
+	  
+      <mat-form-field class="col-md-12">
+		<input matInput [matDatepicker]="picker" placeholder="Event date" formControlName="event_date" disabled  (dateChange)="onChangePickupdate($event.value)">
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker disabled="false"></mat-datepicker>
+ 	  <mat-error>
+          <span *ngIf="!eventsForm.get('event_date').valid && eventsForm.get('event_date').touched">Required</span>
+        </mat-error>
+	 </mat-form-field>  
+	  
+	  <mat-form-field class="col-md-12">
+        <input matInput placeholder="Event Name" formControlName="event_name"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!eventsForm.get('event_name').valid && eventsForm.get('event_name').touched">Required</span>
+        </mat-error>
+      </mat-form-field>
+
+	  <mat-form-field class="col-md-12">
+        <input matInput placeholder="Event Location" formControlName="event_location"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!eventsForm.get('event_location').valid && eventsForm.get('event_location').touched">Required</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12">
+
+		 <textarea matInput placeholder="Event Description" formControlName="event_description"
+               [errorStateMatcher]="matcher" rows="5"></textarea>	   
+			   
+        <mat-error>
+          <span *ngIf="!eventsForm.get('event_description').valid && eventsForm.get('event_description').touched">Required</span>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-row">
+        
+      </div>
+	  <h4 class="text-success">{{Message}}</h4>
+    
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+               <button type="submit" [disabled]="!eventsForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+                <button id="close-modal-events" type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+            </div>
+			</form>
+        </div>
+    </div>
+</div>

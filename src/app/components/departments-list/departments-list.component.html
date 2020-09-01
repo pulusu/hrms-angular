@@ -1,0 +1,66 @@
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Departments List</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
+                        <li class="breadcrumb-item">Departments</li>
+                        <li class="breadcrumb-item active">Departments List</li>
+                    </ul>
+                </div>            
+                
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    
+                    <div class="body">
+					<div class="row m-b-20" *ngIf="isAdmin">
+					     <div class="col-lg-6">
+                                <input class="form-control" type="text" name="search" placeholder="Search here.." [(ngModel)]="filter">      
+                         </div>
+                        <div class="col-lg-6 text-right" >
+                           <a  class="btn btn-info" [routerLink]="['/department-add']">Add New</a>
+                        </div>
+                    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom table-striped m-b-0 c_list">
+                                <thead class="thead-dark">
+                                    <tr>
+                                       
+                                        <th>S. NO</th>
+                                        <th (click)="sort('department_name')">Name
+										<span class="glyphicon sort-icon" *ngIf="key =='department_name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+                                        <th (click)="sort('department_head_name')">Department Head
+										<span class="glyphicon sort-icon" *ngIf="key =='department_head_name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+                                        <th *ngIf="isAdmin">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                
+                                    <tr *ngFor="let employee of employeelist | orderBy: key : reverse | filter:filter | paginate : { itemsPerPage: 20, currentPage: p }; let i = index">
+                                        <td><span>{{ 1 + i }}</span></td>
+                                        <td><span>{{employee.department_name}}</span></td>
+                                        <td><span>{{employee.department_head_name[0].emp_name}}</span></td>
+                                       <td *ngIf="isAdmin">
+                                          <!--  <button mat-raised-button color="primary" class="push-right"
+                                            [routerLink]="['/edit-department/', employee._id]">Edit</button>-->
+                                            <button mat-raised-button color="accent" (click)="deleteEmployee(i, employee)">Delete</button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+							<pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Add Profile</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+  
+  <!-- Form -->
+  <div class="inner-wrapper">
+    <form [formGroup]="userForm" (ngSubmit)="submitUserForm()" #resetuserForm="ngForm" novalidate>
+      <!-- Left block -->
+      <mat-card>
+        <div class="controlers-wrapper">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Select Requirment</mat-label>
+                <mat-select formControlName="Requirment_for" placeholder="Select Requirment for">
+                    <mat-option *ngFor="let Job_Location of Job_Locations" [value]="Job_Location.value">{{Job_Location.viewValue}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="handleError('Requirment_for', 'required')">
+                        You must Select a<strong> Job Location</strong>
+                      </mat-error>
+            </mat-form-field> 
+            
+            <mat-form-field class="example-full-width">
+                    <mat-label>Select Location</mat-label>
+                    <mat-select formControlName="Job_Location" placeholder="Select Job Location">
+                        <mat-option *ngFor="let Job_Location of Job_Locations" [value]="Job_Location.value">{{Job_Location.viewValue}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('Job_Location', 'required')">
+                            You must Select a<strong> Job Location</strong>
+                          </mat-error>
+            </mat-form-field> 
+        <!-- Name -->
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="First name" formControlName="First_Name">
+            <mat-error *ngIf="handleError('First_Name', 'required')">
+              You must provide a<strong> First Name</strong>
+            </mat-error>
+          </mat-form-field>
+        <!-- Name -->
+        <mat-form-field class="example-full-width">
+                <input matInput placeholder="Last name" formControlName="Last_Name">
+                <mat-error *ngIf="handleError('Last_Name', 'required')">
+                  You must provide a<strong> Last Name</strong>
+                </mat-error>
+              </mat-form-field>  
+          <!-- Mobile Number -->
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Mobile Number" formControlName="Mobile_Number">
+            <mat-error *ngIf="handleError('Mobile_Number', 'required')">
+              You must provide a<strong>  Mobile Number</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- Email -->
+          <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email Id" formControlName="Email_Id">
+                <mat-error *ngIf="handleError('Email_Id', 'required')">
+                  You must provide a<strong>  Email_Id</strong>
+                </mat-error>
+          </mat-form-field>  
+          <!-- current_company -->
+          <mat-form-field class="example-full-width">
+                <input matInput placeholder="Current company" formControlName="current_company">
+                <mat-error *ngIf="handleError('current_company', 'required')">
+                  You must provide a<strong>  Current company</strong>
+                </mat-error>
+          </mat-form-field>  
+          <!-- Skill_Set_1 -->
+          <mat-form-field class="example-full-width">
+                <input matInput placeholder="Skill Set 1" formControlName="Skill_Set_1">
+                <mat-error *ngIf="handleError('Skill_Set_1', 'required')">
+                  You must provide a<strong>  Current company</strong>
+                </mat-error>
+          </mat-form-field>  
+          <!-- Skill_Set_2 -->
+          <mat-form-field class="example-full-width">
+                <input matInput placeholder="Skill Set 1" formControlName="Skill_Set_2">
+                <mat-error *ngIf="handleError('Skill_Set_2', 'required')">
+                  You must provide a<strong>  Skill Set2</strong>
+                </mat-error>
+          </mat-form-field> 
+          <!-- Current_CTC -->
+          <mat-form-field class="example-full-width">
+                <input matInput placeholder="Current_CTC" formControlName="Current_CTC">
+                <mat-error *ngIf="handleError('Current_CTC', 'required')">
+                  You must provide a<strong>  Current CTC</strong>
+                </mat-error>
+          </mat-form-field> 
+          <!-- remarks -->
+          <mat-form-field class="example-full-width">
+                <textarea rows="5" matInput placeholder="Remarks*" 
+                formControlName="remarks">
+             </textarea>
+                <mat-error *ngIf="handleError('remarks', 'required')">
+                  You must provide a<strong>  remarks</strong>
+                </mat-error>
+          </mat-form-field> 
+         
+        </div>
+      </mat-card>
+  
+      <!-- Right block -->
+      <mat-card>
+        <div class="controlers-wrapper">
+
+                <mat-form-field class="example-full-width">
+                        <mat-label>Select Requirment</mat-label>
+                        <mat-select formControlName="Current_Location" placeholder="Select Current_Location">
+                            <mat-option *ngFor="let Job_Location of Job_Locations" [value]="Job_Location.value">{{Job_Location.viewValue}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="handleError('Current_Location', 'required')">
+                                You must Select a<strong> Job Location</strong>
+                              </mat-error>
+                    </mat-form-field> 
+                    
+                    <mat-form-field class="example-full-width">
+                            <mat-label>Select Location</mat-label>
+                            <mat-select formControlName="Position_Type" placeholder="Select Job Location">
+                                <mat-option *ngFor="let Job_Location of Job_Locations" [value]="Job_Location.value">{{Job_Location.viewValue}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="handleError('Position_Type', 'required')">
+                                    You must Select a<strong> Job Location</strong>
+                                  </mat-error>
+                    </mat-form-field>  
+            <!-- Middle_Name -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Middle_Name" formControlName="Middle_Name">
+                    <mat-error *ngIf="handleError('Middle_Name', 'required')">
+                    You must provide a<strong>  Middle_Name</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Client_Name -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Client_Name" formControlName="Client_Name">
+                    <mat-error *ngIf="handleError('Client_Name', 'required')">
+                    You must provide a<strong>  Client_Name</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Alternate_Number -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Alternate_Number" formControlName="Alternate_Number">
+                    <mat-error *ngIf="handleError('Alternate_Number', 'required')">
+                    You must provide a<strong>  Alternate_Number</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- business_email -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="business_email" formControlName="business_email">
+                    <mat-error *ngIf="handleError('business_email', 'required')">
+                    You must provide a<strong>  business_email</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Total_Years_Of_Experience -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Total Years Of Experience" formControlName="Total_Years_Of_Experience">
+                    <mat-error *ngIf="handleError('Total_Years_Of_Experience', 'required')">
+                    You must provide a<strong>  Total Years Of Experience</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Skill_Set_1_exp_year -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Skill Set 1 experience year" formControlName="Skill_Set_1_exp_year">
+                    <mat-error *ngIf="handleError('Skill_Set_1_exp_year', 'required')">
+                    You must provide a<strong>  Skill Set 1 experience year</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Skill_Set_2_exp_year -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Skill Set 2 experience year" formControlName="Skill_Set_2_exp_year">
+                    <mat-error *ngIf="handleError('Skill_Set_2_exp_year', 'required')">
+                    You must provide a<strong>  Skill Set 2 experience year</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Skill_Set_1_exp_month -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Skill Set 1 experience month" formControlName="Skill_Set_1_exp_month">
+                    <mat-error *ngIf="handleError('Skill_Set_1_exp_month', 'required')">
+                    You must provide a<strong>  Skill Set 1 experience month</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Skill_Set_2_exp_month -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Skill Set 2 experience month" formControlName="Skill_Set_2_exp_month">
+                    <mat-error *ngIf="handleError('Skill_Set_2_exp_month', 'required')">
+                    You must provide a<strong>  Skill Set 2 experience month</strong>
+                    </mat-error>
+            </mat-form-field> 
+            <!-- Expected_CTC -->
+            <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Expected CTC" formControlName="Expected_CTC">
+                    <mat-error *ngIf="handleError('Expected_CTC', 'required')">
+                    You must provide a<strong>  Expected CTC</strong>
+                    </mat-error>
+            </mat-form-field> 
+          <!-- Add subjects -->
+          <button type="button" mat-raised-button (click)="fileInput.click()">Chose User Profile</button>
+  
+          <input hidden (change)="onFileSelect($event)" #fileInput type="file" name="resume" id="file"> 
+  <!-- Add subjects -->
+  <button type="button" mat-raised-button (click)="fileInputformatted_resume.click()">Chose User formatted_resume</button>
+  
+  <input hidden (change)="onFileSelectfileInputformatted_resume($event)" #fileInputformatted_resume type="file" name="formatted_resume" id="formatted_resume"> 
+
+ 
+        </div>
+      </mat-card>
+  
+      <!-- Submit & Reset -->
+      <mat-card>
+        <div class="full-wrapper button-wrapper">
+          <div class="button-wrapper">
+            <button mat-flat-button color="warn">Submit</button>
+          </div>
+        </div>
+      </mat-card>
+    </form>
+  </div>
+  

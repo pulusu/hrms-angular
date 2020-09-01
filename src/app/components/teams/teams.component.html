@@ -1,0 +1,33 @@
+<div id="main-content">
+    <div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> IPL</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item active">Score Board</li>
+                </ul>
+            </div>            
+            
+        </div>
+    </div>
+   <div class="row clearfix ipl w_social3">
+   
+        <div class="col-lg-3 col-md-3 col-4" *ngFor="let team of teamslist | orderBy: key : reverse | filter:filter | paginate : { itemsPerPage: 10, currentPage: p }; let i = index">
+            
+                <div class="card facebook-widget">
+                <div class="icon"><img src="{{team.team_image}}"></div>
+                <a [routerLink]="['/team-details/', team._id]"><h3>{{team.team_name}}</h3></a>
+                <div class="content">
+                    <div class="text">Score</div>
+                    <div class="number">   {{team.total_scores}} </div>
+                </div>
+            </div>
+			</div>
+       
+       
+       </div> 
+
+     </div>
+     </div>
